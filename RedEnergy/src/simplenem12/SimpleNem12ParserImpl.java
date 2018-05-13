@@ -51,7 +51,7 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 			meterReads.add(item);
 		} else if (p.length == 4) {
 			if (p.length > 3 && (p[3] != null && p[3].trim().length() > 0)) { // According to the Sample File only in this case of RecordType 300 the
-																				// length would be greater than four
+																				// length would be greater than three
 				if (meterReads.get(meterReads.size() - 1).getVolumes() == null) {// create a new volume Map only when there are no volumes attached to the Meter Reading else use the existing Map
 					volumes = new TreeMap<LocalDate, MeterVolume>();
 				} else {
