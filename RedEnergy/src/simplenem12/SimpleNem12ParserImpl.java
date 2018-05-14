@@ -45,14 +45,15 @@ public class SimpleNem12ParserImpl implements SimpleNem12Parser {
 		String[] p = line.split(COMMA);// a CSV has comma separated lines
 		SortedMap<LocalDate, MeterVolume> volumes = null;
 		MeterRead item = null;
-		if (p.length == 3) { // According to the Sample File only in this case of RecordType 200 the length
-								// would be three
+		if (p.length > 0 && p[0].equals("200")) { // When RecordType is 200
 			item = new MeterRead(p[1], EnergyUnit.KWH);
 			meterReads.add(item);
-		} else if (p.length == 4) {
-			if (p.length > 3 && (p[3] != null && p[3].trim().length() > 0)) { // According to the Sample File only in this case of RecordType 300 the
-																				// length would be greater than three
-				if (meterReads.get(meterReads.size() - 1).getVolumes() == null) {// create a new volume Map only when there are no volumes attached to the Meter Reading else use the existing Map
+		} else if (p.length == 4 && p[0].equals("300")) {
+			if (p.length > 3 && (p[3] != null && p[3].trim().length() > 0)) { //
+				if (meterReads.get(meterReads.size() - 1).getVolumes() == null) {// create a new volume Map only when
+																					// there are no volumes attached to
+																					// the Meter Reading else use the
+																					// existing Map
 					volumes = new TreeMap<LocalDate, MeterVolume>();
 				} else {
 					volumes = meterReads.get(meterReads.size() - 1).getVolumes();
